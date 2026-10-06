@@ -11,17 +11,29 @@
 <body>
   <main class="app">
     <header class="header"><div><p class="eyebrow">WEEKLY ROUTINE</p><h1>生活メンテナンス<span class="dot">.</span></h1><p class="subtitle">少しずつ、暮らしを整える。</p></div><button id="add-task" class="primary">＋ 習慣を追加</button></header>
-    <section class="week-panel" aria-label="週の選択">
+    <nav class="view-navigation" aria-label="表示切り替え"><div><button id="week-tab" aria-pressed="true">週</button><button id="month-tab" aria-pressed="false">月の振り返り</button></div><button id="manage-tasks">習慣を管理</button></nav>
+    <section id="week-view" class="week-panel" aria-label="週の選択">
       <div class="week-top"><span id="week-label" class="eyebrow"></span><button id="this-week" class="quiet">今週に戻る</button></div>
       <div class="week-navigation"><button id="previous-week" aria-label="前の週">←<span> 前の週</span></button><h2 id="week-range"></h2><button id="next-week" aria-label="次の週"><span>次の週 </span>→</button></div>
       <div class="overview"><span id="summary"></span><span id="summary-detail"></span></div><div class="summary-track"><div id="summary-fill"></div></div>
     </section>
-    <div class="section-heading"><h2>今週の習慣</h2><span>曜日を押してチェック</span></div>
+    <section id="month-view" class="week-panel" aria-label="月の選択" hidden>
+      <div class="week-top"><span class="eyebrow">MONTHLY LOG · 振り返り</span><button id="this-month" class="quiet">今月に戻る</button></div>
+      <div class="week-navigation"><button id="previous-month" aria-label="前の月">←<span> 前の月</span></button><h2 id="month-range"></h2><button id="next-month" aria-label="次の月"><span>次の月 </span>→</button></div>
+      <p class="month-rule">実施はチェック日の月、週間目標は月曜日の月に集計。開始前・休止期間は対象日・対象週から除きます。</p>
+    </section>
+    <div class="section-heading"><h2 id="list-title">今週の習慣</h2><span id="list-hint">曜日を押してチェック</span></div>
     <div id="tasks" class="tasks"></div>
     <p id="status" role="status" aria-live="polite"></p>
     <footer>自分のペースで。できた日を、ひとつずつ。<span>データはこのブラウザーに保存されます</span></footer>
   </main>
-  <dialog id="task-dialog">
+  <dialog id="management-dialog" aria-labelledby="management-title">
+    <div class="dialog-heading"><h2 id="management-title">習慣を管理</h2><button id="close-management" class="quiet" aria-label="管理画面を閉じる">✕</button></div>
+    <p class="management-hint">↑ ↓ で表示順を変更。休止した習慣は、いつでも再開できます。</p>
+    <div id="management-list"></div>
+    <p class="management-hint">休止・再開は今日から反映されます。削除は「編集」から行い、再開できません。どちらもチェック履歴は残ります。</p>
+  </dialog>
+  <dialog id="task-dialog" aria-labelledby="dialog-title">
     <form id="task-form">
       <div class="dialog-heading"><h2 id="dialog-title">習慣を追加</h2><button type="button" id="close-dialog" class="quiet" aria-label="閉じる">✕</button></div>
       <label>タスク名<input id="task-name" required maxlength="100" placeholder="例：自炊する"></label>
